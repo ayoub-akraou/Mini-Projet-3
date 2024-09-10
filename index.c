@@ -103,15 +103,14 @@ void afficher()
     }
 }
 
-int obtenir_indice(struct Tache[], int taille, int id)
+int obtenir_indice(int id)
 {
-    for (int i = 0; i < taille; i++)
+    for (int i = 0; i < size; i++)
     {
-        if (taches[i].identifiant == id)
-            return i;
+        if (taches[i].identifiant == id) return i;
+    }
         printf("aucun element trouve\n");
         return -1;
-    }
 }
 
 void modifier()
@@ -126,23 +125,40 @@ void modifier()
     printf("   [3] Modifier le deadline d une tâche.\n");
     scanf("%i", &choix);
     printf("choix: %d\nidentifiant: %d\n", choix, id);
-    indice_tache = obtenir_indice(taches, size, id);
+    indice_tache = obtenir_indice(id);
     printf("indice de tache: %d\n", indice_tache);
 
+        printf("saisir la nouvelle value:\n");
     switch (choix)
     {
     case 1:
-        printf("saisir la nouvelle value:\n");
-
         getchar();
         scanf("%[^\n]", taches[indice_tache].description);
+        getchar();
         break;
     case 2:
+        getchar();
         scanf("%[^\n]", taches[indice_tache].statut);
         break;
     case 3:
+        getchar();
+        scanf("%[^\n]", taches[indice_tache].deadline);
         break;
     }
+}
+
+void supprimer() {
+    int id;
+    printf("Veuiller saisir l'identifiant de la tache\n");
+    scanf("%i", &id);
+    int indice_tache = obtenir_indice(id);
+    if(indice_tache != -1){
+        
+    for(int i = indice_tache; i < size - 1; i++) {
+        taches[i] = taches[i + 1];
+    }
+    }
+    size--;
 }
 
 void afficher_menu()
@@ -180,8 +196,8 @@ void afficher_menu()
     case 4:
         modifier();
         break;
-        // case 5:  supprimer();
-        // break;
+        case 5:  supprimer();
+        break;
         // case 6:  rechercher();
         // break;
         // case 7:  afficher_les_statistiques();
