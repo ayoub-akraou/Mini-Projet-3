@@ -177,6 +177,28 @@ void supprimer()
     size--;
 }
 
+void rechercher()
+{
+    int choix, indice;
+    printf("veuiller saisir votre choix:\n");
+    printf("   [1] Rechercher une tâche par son Identifiant.\n");
+    printf("   [2] Rechercher une tâche par son Titre\n");
+    scanf("%d", choix);
+    if (choix == 1)
+        indice = rechercher_par_id();
+    if (choix == 2)
+        indice = rechercher_par_titre();
+    if (indice != -1)
+    {
+        printf("---------------------\n");
+        printf("titre: %s\n", taches[indice].titre);
+        printf("description: %s\n", taches[indice].description);
+        printf("deadline: %s\n", taches[indice].deadline);
+        printf("statut: %s\n", taches[indice].statut);
+        printf("---------------------\n");
+    }
+}
+
 void afficher_menu()
 {
     int choix;
@@ -186,9 +208,7 @@ void afficher_menu()
     printf("[3] Afficher la liste de toutes les tâches.\n");
     printf("[4] Modifier une tâche\n");
     printf("[5] Supprimer une tâche par identifiant.\n");
-    printf("=> Rechercher les Tâches\n");
-    printf("   [6.1] Rechercher une tâche par son Identifiant.\n");
-    printf("   [6.2] Rechercher une tâche par son Titre\n");
+    printf("[6] Rechercher les Tâches\n");
     printf("=> Afficher les statistiques\n");
     printf("   [7.1] Afficher le nombre total des tâches.\n");
     printf("   [7.2] Afficher le nombre de tâches complètes et incomplètes.\n");
@@ -215,8 +235,9 @@ void afficher_menu()
     case 5:
         supprimer();
         break;
-        // case 6:  rechercher();
-        // break;
+    case 6:
+        rechercher();
+        break;
         // case 7:  afficher_les_statistiques();
         // break;
 
