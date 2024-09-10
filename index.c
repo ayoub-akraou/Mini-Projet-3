@@ -56,8 +56,6 @@ void ajouter_tache()
     getchar();
     taches[size] = tache;
     size++;
-
-    puts(taches[0].titre);
 }
 
 void ajouter_n_taches()
@@ -90,11 +88,13 @@ void afficher()
     case 1:
         for (int i = 0; i < size; i++)
         {
+            printf("---------------------\n");
             printf("Tache %i:\n", i + 1);
             printf("titre: %s\n", taches[i].titre);
             printf("description: %s\n", taches[i].description);
             printf("deadline: %s\n", taches[i].deadline);
             printf("statut: %s\n", taches[i].statut);
+            printf("---------------------\n");
         }
         break;
 
@@ -103,16 +103,20 @@ void afficher()
     }
 }
 
-int obtenir_indice(struct Tache[], int taille, id) {
-    for(int i = 0; i < taille; i++) {
-        if(taches[i].identifiant == id) return i;
+int obtenir_indice(struct Tache[], int taille, int id)
+{
+    for (int i = 0; i < taille; i++)
+    {
+        if (taches[i].identifiant == id)
+            return i;
+        printf("aucun element trouve\n");
         return -1;
     }
 }
 
 void modifier()
 {
-    int choix, id;
+    int choix, id, indice_tache;
 
     printf("Veuiller saisir l'identifiant de la tache\n");
     scanf("%i", &id);
@@ -121,18 +125,22 @@ void modifier()
     printf("   [2] Modifier le statut d une tâche.\n");
     printf("   [3] Modifier le deadline d une tâche.\n");
     scanf("%i", &choix);
-    printf("%d \n%d", choix, id);
-    
-    
-    printf("saisir la nouvelle value:")
-    switch(choix) {
-        case 1:
-            scanf("%[^\n]", taches[id].description);
+    printf("choix: %d\nidentifiant: %d\n", choix, id);
+    indice_tache = obtenir_indice(taches, size, id);
+    printf("indice de tache: %d\n", indice_tache);
+
+    switch (choix)
+    {
+    case 1:
+        printf("saisir la nouvelle value:\n");
+
+        getchar();
+        scanf("%[^\n]", taches[indice_tache].description);
         break;
-        case 2:
-            scanf("%[^\n]", taches[id].statut);
+    case 2:
+        scanf("%[^\n]", taches[indice_tache].statut);
         break;
-        case 3:
+    case 3:
         break;
     }
 }
@@ -155,8 +163,8 @@ void afficher_menu()
     printf("   [7.3] Afficher le nombre de jours restants jusqu'au délai de chaque tâche.\n");
 
     scanf("%i", &choix);
-    printf("choix: %i\n\n", choix);
     getchar();
+    printf("choix: %i\n\n", choix);
 
     switch (choix)
     {
