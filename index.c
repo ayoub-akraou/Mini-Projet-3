@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 
 struct Tache
 {
@@ -103,14 +104,26 @@ void afficher()
     }
 }
 
-int obtenir_indice(int id)
+int rechercher_par_id(int id)
 {
     for (int i = 0; i < size; i++)
     {
-        if (taches[i].identifiant == id) return i;
+        if (taches[i].identifiant == id)
+            return i;
     }
-        printf("aucun element trouve\n");
-        return -1;
+    printf("aucun element trouve\n");
+    return -1;
+}
+
+int rechercher_par_titre(char titre[])
+{
+    for (int i = 0; i < size; i++)
+    {
+        if (strcmp(taches[i].titre, titre) == 0)
+            return i;
+    }
+    printf("aucun element trouve\n");
+    return -1;
 }
 
 void modifier()
@@ -125,10 +138,10 @@ void modifier()
     printf("   [3] Modifier le deadline d une tâche.\n");
     scanf("%i", &choix);
     printf("choix: %d\nidentifiant: %d\n", choix, id);
-    indice_tache = obtenir_indice(id);
+    indice_tache = rechercher_par_id(id);
     printf("indice de tache: %d\n", indice_tache);
 
-        printf("saisir la nouvelle value:\n");
+    printf("saisir la nouvelle value:\n");
     switch (choix)
     {
     case 1:
@@ -147,16 +160,19 @@ void modifier()
     }
 }
 
-void supprimer() {
+void supprimer()
+{
     int id;
     printf("Veuiller saisir l'identifiant de la tache\n");
     scanf("%i", &id);
-    int indice_tache = obtenir_indice(id);
-    if(indice_tache != -1){
-        
-    for(int i = indice_tache; i < size - 1; i++) {
-        taches[i] = taches[i + 1];
-    }
+    int indice_tache = rechercher_par_id(id);
+    if (indice_tache != -1)
+    {
+
+        for (int i = indice_tache; i < size - 1; i++)
+        {
+            taches[i] = taches[i + 1];
+        }
     }
     size--;
 }
@@ -196,7 +212,8 @@ void afficher_menu()
     case 4:
         modifier();
         break;
-        case 5:  supprimer();
+    case 5:
+        supprimer();
         break;
         // case 6:  rechercher();
         // break;
